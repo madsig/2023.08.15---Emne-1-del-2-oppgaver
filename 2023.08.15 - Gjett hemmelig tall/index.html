@@ -16,13 +16,15 @@
         let secretNumber = getRandomNumber(0, 100);
         let guess = ''
         let x = 0;
+        let attempt = 0;
 
         function getRandomNumber(min, max) {
             return min + Math.floor(Math.random() * (max - min + 1));
         }
         function checkEnter(event) {
             if (event.key === "Enter") {
-                if (x==0){
+                if (x==0 && document.getElementById('inputGuess').value <= 100){
+                    attempt++;
                     processInput();
                     checkGuess();
                     console.log(secretNumber)
@@ -31,20 +33,20 @@
             
         }
         function processInput() {
-            guess = document.getElementById('inputGuess').value.toUpperCase();
+            guess = document.getElementById('inputGuess').value;
             console.log(guess);
         }
         function checkGuess() {
             if (guess == secretNumber){
                 x++;
                 feedbackElement.innerHTML += /*HTML*/`
-                    <div>${guess} er riktig, gratulerer!</div>
+                    <div style="font-weight: bold">${guess} er riktig, gratulerer! (forsøk ${attempt})</div>
                 `
             }
             else {
                 let rightWrong = guess < secretNumber ? 'mindre' : 'større';
                 feedbackElement.innerHTML += /*HTML*/`
-                    <div>${guess} er ${rightWrong} enn tallet</div>
+                    <div>${guess} er ${rightWrong} enn tallet (forsøk ${attempt})</div>
                 `
             }
         }
