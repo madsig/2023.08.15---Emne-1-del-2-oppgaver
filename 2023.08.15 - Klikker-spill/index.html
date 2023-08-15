@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klikker-spill</title>
+</head>
+<body>
+    <h2 id="h2"></h2>
+    <div>
+        <button onclick="handleClick()">Klikk på meg!</button>
+        <label id="clickLabel"></label><br/>
+        <button id="clickID" onclick="clickUpgrade()">Oppgrader</button>
+        <label id="upgradeLabel"></label>
+    </div>
+
+    <script>
+        let number = 0;
+        let increaseAmount = 1;
+        let upgradeSteps = 1;
+        let upgradeCost = 10;
+        
+        function handleClick(){
+            number += increaseAmount;
+            updateNumber();
+        }
+        function clickUpgrade(){
+            if (number >= upgradeCost){
+                increaseAmount += upgradeSteps;
+                number -= upgradeCost;
+                upgradeCost += 5;
+                updateNumber();
+            }
+        }
+        function updateNumber(){
+            document.getElementById('h2').innerHTML = number;
+            document.getElementById('clickLabel').innerHTML = "+" + increaseAmount;
+            document.getElementById('upgradeLabel').innerHTML = "Pris: " + upgradeCost;
+        }
+        updateNumber();
+        </script>
+</body>
+</html>
