@@ -6,6 +6,77 @@
     <title>Stein, saks, papir!</title>
 </head>
 <body>
-    
+    <h2>Stein, saks, papir!</h2>
+    <div id="points"></div><br/>
+    <div id="results"></div><br/>
+    <div id="buttons">
+        <button onclick="playerChoose('stein')">Stein</button>
+        <button onclick="playerChoose('saks')">Saks</button>
+        <button onclick="playerChoose('papir')">Papir</button>
+    </div>
+
+    <script>
+        let computerChoice = '';
+        let playerChoice = '';
+        let result = '';
+        const choices = ['stein', 'saks', 'papir'];
+        let playerPoints = 0;
+        let computerPoints = 0;
+
+        function getRandomNumber(min, max) {
+            return min + Math.floor(Math.random() * (max - min + 1));
+        }
+
+        function playerChoose(hand) {
+            if (hand === "stein") {
+                playerChoice = "stein";
+                console.log(playerChoice);
+            }
+            else if (hand === "saks") {
+                playerChoice = "saks";
+                console.log(playerChoice);
+            }
+            else if (hand === "papir") {
+                playerChoice = "papir";
+                console.log(playerChoice);
+            }
+            computerChoose();
+            checkWin();
+            points();
+        }
+        function computerChoose() {
+            let x = getRandomNumber(0, 2);
+            computerChoice = choices[x];
+            console.log(computerChoice, x);
+        }
+
+        function checkWin() {
+            if (playerChoice === computerChoice) {
+                result = "Det blir uavgjort!"
+            }
+            else if (
+                (playerChoice === 'stein' && computerChoice === 'saks')||
+                (playerChoice === 'saks' && computerChoice === 'papir')||
+                (playerChoice === 'papir' && computerChoice === 'stein')
+            ) {
+                result = 'Spiller vant!';
+                playerPoints++;
+            }
+            else {
+                result = 'Datamaskinen vant!';
+                computerPoints++;
+            }
+            document.getElementById('results').innerHTML = /*HTML*/`
+                <div>Spiller valgte ${playerChoice} og datamaskinen valgte ${computerChoice}. ${result}</div>
+            `
+        }
+        function points(){
+            document.getElementById('points').innerHTML = /*HTML*/`
+                <div>Datamaskin poeng: ${computerPoints}</div>
+                <div>Spiller poeng: ${playerPoints}</div>
+            `
+        }
+        points();
+    </script>
 </body>
 </html>
