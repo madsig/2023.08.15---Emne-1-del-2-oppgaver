@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #board {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+        }
+
+        #board>div {
+            border: 1px solid lightblue;
+        }
+
+        .selected {
+            background-color: yellow;
+            cursor: pointer;
+        }
+        .buttons {
+            width: 20rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            size: 500px;
+        }
+    </style>
+    <title>Enkelt reaksjonspill</title>
+</head>
+<body>
+    <div id="board"></div>
+    <div id="time"></div>
+    <script>
+        const size = 64;
+        let selectedSquareIndex = Math.floor(Math.random() * size);
+        let newTime = '';
+        let reactionTime = '';
+        const boardElement = document.getElementById('board');
+        
+        showBoard();
+        
+        function generatePattern(length) {
+            const pattern = '<div></div>';
+            return ''.padEnd(pattern.length * length, pattern);
+        }
+
+        function showBoard() {
+            const lengthPart1 = selectedSquareIndex;
+            const lengthPart3 = size - (selectedSquareIndex + 1);
+
+            const part1 = generatePattern(lengthPart1);
+            const part2 = '<div class="selected" onclick="reaction()"></div>';
+            const part3 = generatePattern(lengthPart3);
+
+            const fullHtml = part1 + part2 + part3;
+           boardElement.innerHTML = fullHtml;
+           newTime = new Date().getTime()
+        }
+
+        function reaction() {
+            reactionTime = new Date().getTime();
+            let lastSelected = selectedSquareIndex;
+            selectedSquareIndex = Math.floor(Math.random() * size);
+            if (selectedSquareIndex === lastSelected) {
+                selectedSquareIndex = Math.floor(Math.random() * size);
+                reaction();
+            }
+            else {
+                document.getElementById('time').innerHTML = /*HTML*/`
+                    Du brukte ${(reactionTime - newTime)/1000}s
+                `;
+                showBoard();
+            }
+        }
+    </script>
+</body>
+</html>
