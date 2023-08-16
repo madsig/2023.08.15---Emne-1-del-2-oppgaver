@@ -11,10 +11,3 @@
 .selected {
     background-color: yellow;
 }
-.buttons {
-    width: 20rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    size: 500px;
-}
