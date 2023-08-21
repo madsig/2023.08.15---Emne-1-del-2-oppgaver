@@ -4,7 +4,7 @@ const colorPiece = ["blackPiece", "blackPiece", "whitePiece", "whitePiece"];
 let colorSelect = 0;
 const pawns = '♟'.repeat(8);
 const pieces = '♜♞♝♛♚♝♞♜';
-const blanks = Array(8).fill('');
+const blanks = ' '.repeat(8);
 const board = [pieces, pawns, blanks, blanks, blanks, blanks, pawns, pieces];
 
 let pieceRow = 0;
